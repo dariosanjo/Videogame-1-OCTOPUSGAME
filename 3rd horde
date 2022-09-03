@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Orda3 : MonoBehaviour
+{
+    public GameObject Enemy_12;
+    public GameObject Enemy_13;
+    public GameObject Enemy_14;
+    public GameObject Enemy_15;
+    public GameObject Enemy_16;
+    public GameObject Enemy_17;
+
+    GameObject cajaTrampa3;
+
+    GameObject Texto_3;
+
+    GameObject TrampaTexto3;
+
+    Animator animacionTexto3;
+   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        cajaTrampa3 = GameObject.Find("Trampa 3");
+
+        Debug.Log("Orda3!");
+
+        Instantiate(Enemy_12, new Vector3(430, 14, -320), Quaternion.identity);
+        Instantiate(Enemy_13, new Vector3(437, 14, -337), Quaternion.identity);
+        Instantiate(Enemy_14, new Vector3(425, 16, -340), Quaternion.identity);
+        Instantiate(Enemy_15, new Vector3(432, 14, -327), Quaternion.identity);
+        Instantiate(Enemy_16, new Vector3(423, 16, -338), Quaternion.identity);
+        Instantiate(Enemy_17, new Vector3(437, 15, -328), Quaternion.identity);
+
+
+        Destroy(cajaTrampa3);
+
+      
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject objeto = collision.gameObject;
+
+        if (objeto.tag == "Player")
+        {
+            TrampaTexto3 = GameObject.Find("TrampaTexto3");
+            Texto_3 = GameObject.Find("Texto3");
+
+            TrampaTexto3.SetActive(false);
+
+            animacionTexto3 = Texto_3.GetComponent<Animator>();
+
+            animacionTexto3.SetBool("informar3", true);
+        }
+    }
+}
