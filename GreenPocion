@@ -1,0 +1,53 @@
+using UnityEngine;
+
+public class GreenPocion : MonoBehaviour
+{
+    GameObject Gpocion;
+
+    public AudioClip SonidoPocion;
+
+    GameObject puerta_izq;
+    GameObject puerta_dcha;
+    
+
+
+    Animator animacionPtaIzq;
+    Animator animacionPtaDcha;
+
+    AudioSource sonido;
+
+
+    
+    void Start()
+    {
+        sonido = this.GetComponent<AudioSource>();
+        Gpocion = GameObject.Find("pocion1");
+    }
+
+   
+    //Do the animation of the door opening and its sounds when player touches the green bottle
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject objeto = collision.gameObject;
+
+        if (objeto.tag == "Player")
+        {
+            
+            
+
+            puerta_dcha = GameObject.Find("Eje puerta dcha");
+            puerta_izq = GameObject.Find("Eje puerta izq");
+
+            animacionPtaDcha = puerta_dcha.GetComponent<Animator>();
+            animacionPtaIzq = puerta_izq.GetComponent<Animator>();
+
+            animacionPtaDcha.SetBool("girar dcha", true);
+            animacionPtaIzq.SetBool("girar izq", true);
+
+
+            Gpocion.SetActive(false);
+            sonido.clip = SonidoPocion;
+            sonido.Play();
+        }
+    }
+}
