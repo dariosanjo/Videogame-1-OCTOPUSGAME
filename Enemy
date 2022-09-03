@@ -1,0 +1,78 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class Enemy : TargetScript
+{
+    public Animator animator;
+    public float Health = 100;
+    public NavMeshAgent navMeshAgent;
+
+    bool isDead;
+
+    public float coolDown = 0.5f;
+    Transform tarjet;
+    public GameObject deadEffect;
+    
+    void Start()
+    {
+        tarjet = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    // Set Enemy animations in order to actions
+    void Update()
+    {
+        if (navMeshAgent.remainingDistance < 1 && !isDead)
+        {
+            animator.SetTrigger("Attack");
+        }
+
+        if (isHit && coolDown <= 0 && !isDead)
+        {
+            Debug.Log("Hit");
+            
+            Health -= 10;
+            coolDown = 0.5f;
+
+            if (Health <= 0)
+            {
+                animator.SetTrigger("Dead");
+                navMeshAgent.isStopped = true;
+                isDead = true;
+                StartCoroutine(Dead());
+            }
+
+            else
+            {
+                animator.SetTrigger("Hurt");
+                navMeshAgent.isStopped = true;
+            }
+
+            isHit = false;
+
+        }
+        else if (coolDown <= 0)
+        {
+            if (!isDead)
+            {
+                navMeshAgent.isStopped = false;
+                navMeshAgent.SetDestination(tarjet.position);
+            }
+        }
+
+
+        if (coolDown > 0)
+        {
+            coolDown -= Time.deltaTime;
+        }
+    }
+
+    IEnumerator Dead()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameObject _effect = Instantiate(deadEffect, transform.position, Quaternion.identity);
+        Destroy(_effect, 3f);
+        Destroy(gameObject);
+    }
+}
