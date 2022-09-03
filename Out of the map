@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SalirseDeMapa : MonoBehaviour
+{
+    
+
+    void OnCollisionEnter(Collision collision)
+    {
+
+        GameObject objetos = collision.gameObject;
+
+        if (objetos.tag == "Fuera")
+        {
+            Debug.Log("Colisión detectada");
+            SceneManager.LoadScene("Escena2");
+        }
+    }
+
+    }
