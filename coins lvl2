@@ -1,0 +1,73 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MonedasParking : MonoBehaviour
+{
+
+    GameObject moneda1;
+    GameObject moneda2;
+    GameObject moneda3;
+    GameObject moneda4;
+
+    GameObject PuertaIzq;
+    GameObject PuertaDcha;
+
+   
+    Animator animPuerta_izq;
+    Animator animPuerta_dcha;
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+       
+
+        moneda1 = GameObject.Find("Coin_1");
+        moneda2 = GameObject.Find("Coin_2");
+        moneda3 = GameObject.Find("Coin_3");
+        moneda4 = GameObject.Find("Coin_4");
+
+        if (other.name == "Coin_1")
+        {
+            moneda1.SetActive(false);
+
+        }
+
+        if (other.name == "Coin_2")
+        {
+            moneda2.SetActive(false);
+
+        }
+
+        if (other.name == "Coin_3")
+        {
+            moneda3.SetActive(false);
+
+        }
+
+        if (other.name == "Coin_4")
+        {
+           moneda4.SetActive(false);
+    
+            PuertaIzq = GameObject.Find("Eje puerta izq");
+            PuertaDcha = GameObject.Find("Eje puerta dcha");
+
+            animPuerta_izq = PuertaIzq.GetComponent<Animator>();
+            animPuerta_dcha = PuertaDcha.GetComponent<Animator>();
+
+            animPuerta_izq.SetBool("abrir izq", true);
+            animPuerta_dcha.SetBool("abrir dcha", true);
+
+            
+
+        }
+
+        
+        
+    }
+   
+
+        
+    
+}
