@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Orda2 : MonoBehaviour
+{
+    public GameObject Enemy_6;
+    public GameObject Enemy_7;
+    public GameObject Enemy_8;
+    public GameObject Enemy_9;
+    public GameObject Enemy_10;
+    public GameObject Enemy_11;
+
+    GameObject cajaTrampa2;
+
+    GameObject Texto_2;
+
+    GameObject TrampaTexto2;
+
+    Animator animacionTexto2;
+    
+  
+    private void OnTriggerEnter(Collider other)
+    {
+        cajaTrampa2 = GameObject.Find("Trampa 2");
+
+        Debug.Log("Orda2!");
+
+        Instantiate(Enemy_6, new Vector3(285, 27, -630), Quaternion.identity);
+        Instantiate(Enemy_7, new Vector3(292, 28, -625), Quaternion.identity);
+        Instantiate(Enemy_8, new Vector3(295, 28, -613), Quaternion.identity);
+        Instantiate(Enemy_9, new Vector3(301, 23, -622), Quaternion.identity);
+        Instantiate(Enemy_10, new Vector3(303, 25, -610), Quaternion.identity);
+        Instantiate(Enemy_11, new Vector3(312, 22, -610), Quaternion.identity);
+
+        Destroy(cajaTrampa2);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject objeto = collision.gameObject;
+
+        if (objeto.tag == "Player")
+        {
+            TrampaTexto2 = GameObject.Find("TrampaTexto2");
+            Texto_2 = GameObject.Find("Texto2");
+
+            TrampaTexto2.SetActive(false);
+
+            animacionTexto2 = Texto_2.GetComponent<Animator>();
+
+            animacionTexto2.SetBool("informar2", true);
+        }
+    }
+}
