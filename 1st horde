@@ -1,0 +1,92 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Orda1 : MonoBehaviour
+{
+    public GameObject Enemy_1;
+    public GameObject Enemy_2;
+    public GameObject Enemy_3;
+    public GameObject Enemy_4;
+    public GameObject Enemy_5;
+
+    GameObject cajaTrampa1;
+
+  //  GameObject Musica;
+
+   
+    GameObject Texto_1;
+    GameObject TrampaTexto1;
+
+    AudioSource sonido;
+
+    public AudioClip DoorOpen;
+  //public AudioClip SegundaCancion;
+
+   
+    Animator animacionTexto1;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        sonido = this.GetComponent<AudioSource>();
+
+       
+
+    }
+
+    // Spawn the enemies when player touches trigger
+    
+    private void OnTriggerEnter(Collider other)
+    {
+
+        cajaTrampa1 = GameObject.Find("Trampa 1");
+
+        Musica = GameObject.Find("Music");
+        Destroy(Musica);
+
+        Debug.Log("Orda1!");
+
+        Instantiate(Enemy_1, new Vector3(122, 19, -685), Quaternion.identity);
+        Instantiate(Enemy_2, new Vector3(108, 22, -693), Quaternion.identity);
+        Instantiate(Enemy_3, new Vector3(103, 20, -683), Quaternion.identity);
+        Instantiate(Enemy_4, new Vector3(109, 17, -678), Quaternion.identity);
+        Instantiate(Enemy_5, new Vector3(96, 19, -684), Quaternion.identity);
+
+        Destroy(cajaTrampa1);
+
+        sonido.clip = SegundaCancion;
+        sonido.Play();
+
+    }
+    //Text appears in fron of the player to warn about enemy spawn
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject objeto = collision.gameObject;
+
+        if (objeto.tag == "Player")
+        {
+
+            TrampaTexto1 = GameObject.Find("TrampaTexto1");
+           
+            Texto_1 = GameObject.Find("Texto1");
+
+
+            TrampaTexto1.SetActive(false);
+
+           
+            animacionTexto1 = Texto_1.GetComponent<Animator>();
+
+           
+            animacionTexto1.SetBool("informar1", true);
+
+        
+
+            sonido.clip = DoorOpen;
+            sonido.Play();
+           
+
+        }
+    }
+}
