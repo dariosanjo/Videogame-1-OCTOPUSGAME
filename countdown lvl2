@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class COUNTDOWNAAAAA : MonoBehaviour
+{
+    
+
+
+    float currentTime = 0f;
+    float startingTime = 85f;
+
+    [SerializeField] Text COUNTDOWNTEXT;
+
+    void Start()
+    {
+        currentTime = startingTime;
+
+       
+    }
+
+    private void Update()
+    {
+        currentTime -= 1 * Time.deltaTime;
+        COUNTDOWNTEXT.text = currentTime.ToString ("##.000");
+
+        if (currentTime >= 40f) { COUNTDOWNTEXT.color = Color.green; }
+        if (currentTime < 40f) { COUNTDOWNTEXT.color = Color.yellow; }
+        if (currentTime < 10f) { COUNTDOWNTEXT.color = Color.red; }
+
+        if (currentTime <= 0)
+        {
+            SceneManager.LoadScene("Menu");
+
+        }
+
+
+    }
+    
+}
